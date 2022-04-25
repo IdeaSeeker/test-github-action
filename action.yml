@@ -3,11 +3,9 @@ description: 'Greet someone'
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-java@v2
-      with:
-        distribution: adopt
-        java-version: 8
-    - run: chmod +x gradlew
+    - name: Chmod
+      run: chmod +x gradlew
+      shell: bash
     - name: Execute myTask
       run: ./gradlew myTask
+      shell: bash
