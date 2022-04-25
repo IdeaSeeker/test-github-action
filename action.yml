@@ -9,3 +9,11 @@ runs:
     - name: Execute myTask
       run: ./gradlew myTask
       shell: bash
+
+    - name: Pushing a new file
+      run: |
+        cat "content" > new-file.txt
+        git add new-file.txt
+        git commit -m "Add a new file"
+        git push
+      shell: bash
