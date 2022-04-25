@@ -12,7 +12,7 @@ runs:
 
     - name: Pushing a new file
       run: |
-        cat "content" > new-file.txt
+        echo "content" > new-file.txt
         git add new-file.txt
         git commit -m "Add a new file"
         git push
