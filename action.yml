@@ -7,7 +7,7 @@ runs:
   steps:  
     - name: Adding myTask to build.gradle
       run: |
-        printf "\n\ntasks.register('myTask') {\n\tprintln 'Hello from myTask!'\n}"
+        printf "\n\ntasks.register('myTask') {\n\tprintln 'Hello from myTask!'\n}" >> build.gradle
       shell: bash
     - name: Execute myTask
       run: |
