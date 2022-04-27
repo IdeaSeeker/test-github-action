@@ -1,16 +1,39 @@
-name: 'Hello World'
+name: 'Test Github Plugin'
 
-description: 'Greet someone'
+description: 'Test Github Plugin Description'
 
 runs:
   using: "composite"
   steps:  
-    - name: Adding myTask to build.gradle
-      run: |
-        printf "\n\ntasks.register('myTask') {\n\tprintln 'Hello from myTask!'\n}" >> build.gradle
+    - run: chmod +x gradlew
       shell: bash
-    - name: Execute myTask
+
+    - name: Run testGradleTask
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: testGradleTask
+      env:
+        USERNAME: ${{ github.actor }}
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      shell: bash
+
+    - name: Commit generated tests # only if there are changes
       run: |
-        chmod +x gradlew
-        ./gradlew myTask
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add -A build/generated/test
+        git diff --quiet HEAD build/generated/test || git commit -m "[UTBot]: Add generated tests"
+      shell: bash
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
+      shell: bash
+
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: build/generated/utbot.sarif
       shell: bash
