@@ -1,6 +1,6 @@
-name: 'Test Github Plugin'
+name: 'Test Github Action'
 
-description: 'Test Github Plugin Description'
+description: 'Test Github Action Description'
 
 runs:
   using: "composite"
