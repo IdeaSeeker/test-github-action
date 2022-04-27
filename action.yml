@@ -15,7 +15,6 @@ runs:
       env:
         USERNAME: ${{ github.actor }}
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      shell: bash
 
     - name: Commit generated tests # only if there are changes
       run: |
@@ -30,10 +29,8 @@ runs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
-      shell: bash
 
     - name: Upload SARIF file
       uses: github/codeql-action/upload-sarif@v1
       with:
         sarif_file: build/generated/utbot.sarif
-      shell: bash
