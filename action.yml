@@ -9,6 +9,7 @@ inputs:
 
   targetClasses:
     description: 'Classes for the test generation'
+    default: ""
 
   testsDirectory:
     description: 'Path to generated tests'
