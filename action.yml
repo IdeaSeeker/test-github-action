@@ -7,6 +7,17 @@ inputs:
     description: 'Github token'
     required: true
 
+  targetClasses:
+    description: 'Classes for the test generation'
+
+  testsDirectory:
+    description: 'Path to generated tests'
+    default: .utbot/test
+
+  pushTests:
+    description: 'Push generated tests to the repository or not'
+    default: true
+
 runs:
   using: "composite"
   steps:  
@@ -16,7 +27,7 @@ runs:
     - name: Run testGradleTask
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: testGradleTask
+        arguments: testGradleTask -PtargetClasses=${{ inputs.targetClasses }} -PtestsDirectory=${{ inputs.testsDirectory }} -PpushTests=${{ inputs.pushTests }}
       env:
         USERNAME: ${{ github.actor }}
         TOKEN: ${{ inputs.token }}
@@ -25,8 +36,8 @@ runs:
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git add -A build/generated/test
-        git diff --quiet HEAD build/generated/test || git commit -m "[UTBot]: Add generated tests"
+        git add -A ${{ inputs.testsDirectory }}
+        ${{ inputs.pushTests }} && ( git diff --quiet HEAD ${{ inputs.testsDirectory }} || git commit -m "[UTBot]: Add generated tests" )
       shell: bash
 
     - name: Push changes
@@ -38,4 +49,4 @@ runs:
     - name: Upload SARIF file
       uses: github/codeql-action/upload-sarif@v1
       with:
-        sarif_file: build/generated/utbot.sarif
+        sarif_file: .utbot/utbot.sarif
