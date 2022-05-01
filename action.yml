@@ -2,6 +2,15 @@ name: 'Test Github Action'
 
 description: 'Test Github Action Description'
 
+inputs:
+  username:
+    description: 'Github username'
+    required: true
+
+  token:
+    description: 'Github token'
+    required: true
+
 runs:
   using: "composite"
   steps:  
@@ -13,8 +22,8 @@ runs:
       with:
         arguments: testGradleTask
       env:
-        USERNAME: ${{ github.actor }}
-        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        USERNAME: ${{ input.username }}
+        TOKEN: ${{ input.token }}
 
     - name: Commit generated tests # only if there are changes
       run: |
