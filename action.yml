@@ -22,8 +22,8 @@ runs:
       with:
         arguments: testGradleTask
       env:
-        USERNAME: ${{ input.username }}
-        TOKEN: ${{ input.token }}
+        USERNAME: ${{ inputs.username }}
+        TOKEN: ${{ inputs.token }}
 
     - name: Commit generated tests # only if there are changes
       run: |
