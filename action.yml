@@ -3,10 +3,6 @@ name: 'Test Github Action'
 description: 'Test Github Action Description'
 
 inputs:
-  username:
-    description: 'Github username'
-    required: true
-
   token:
     description: 'Github token'
     required: true
@@ -22,7 +18,7 @@ runs:
       with:
         arguments: testGradleTask
       env:
-        USERNAME: ${{ inputs.username }}
+        USERNAME: ${{ github.actor }}
         TOKEN: ${{ inputs.token }}
 
     - name: Commit generated tests # only if there are changes
@@ -36,7 +32,7 @@ runs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ inputs.token }}
         branch: ${{ github.ref }}
 
     - name: Upload SARIF file
