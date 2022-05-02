@@ -28,9 +28,13 @@ runs:
     - name: Run testGradleTask
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: testGradleTask -PtargetClasses=${{ inputs.targetClasses }} -PtestsDirectory=${{ inputs.testsDirectory }} -PpushTests=${{ inputs.pushTests }}
+        arguments: |
+          testGradleTask
+            -PtargetClasses=${{ inputs.targetClasses }}
+            -PtestsDirectory=${{ inputs.testsDirectory }}
+            -PpushTests=${{ inputs.pushTests }}
 
-    - name: Configure git user
+    - name: Configure github-actions[bot]
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
