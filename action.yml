@@ -50,7 +50,7 @@ runs:
       shell: bash
 
     - name: Push changes
-      if: ${{ inputs.pushTests }}
+      if: inputs.pushTests
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ inputs.token }}
