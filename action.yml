@@ -5,7 +5,7 @@ description: 'Test Github Action Description'
 inputs:
   token:
     description: 'Github token'
-    default: 'Specify the secrets.GITHUB_TOKEN value'
+    required: true
 
   targetClasses:
     description: 'Classes for the test generation'
@@ -38,10 +38,14 @@ runs:
 
     - name: Commit generated tests
       run: |
-        git add ${{ inputs.testsDirectory }}
-        if ! git diff --quiet HEAD ${{ inputs.testsDirectory }}  # if there are changes
+        if ${{ inputs.pushTests }}  # if the user allows push
         then
-          git commit -m "[UTBot]: Add generated tests"
+          git add ${{ inputs.testsDirectory }}
+          if ! git diff --quiet HEAD ${{ inputs.testsDirectory }}  # if there are changes
+          then
+            git commit -m "[UTBot]: Add generated tests"
+            git push ${{ github.ref }}
+          fi
         fi
       shell: bash
 
