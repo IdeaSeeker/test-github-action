@@ -42,7 +42,6 @@ runs:
         if ! git diff --quiet HEAD ${{ inputs.testsDirectory }}  # if there are changes
         then
           git commit -m "[UTBot]: Add generated tests"
-          git push ${{ github.ref }}
         fi
       shell: bash
 
