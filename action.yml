@@ -50,7 +50,7 @@ runs:
       shell: bash
     
     - name: Echo FALSE
-      if: true
+      if: false
       run: echo "FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE"
       shell: bash
 
