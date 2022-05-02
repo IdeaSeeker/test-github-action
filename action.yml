@@ -36,19 +36,21 @@ runs:
         git config --local user.name "github-actions[bot]"
       shell: bash
 
-    - name: Commit generated tests # only if there are changes
+    - name: Commit generated tests
       run: |
-        if ${{ inputs.pushTests }}
+        if ${{ inputs.pushTests }}  # if the user allows push
         then
           git add ${{ inputs.testsDirectory }}
-          if ! git diff --quiet HEAD ${{ inputs.testsDirectory }}
+          if ! git diff --quiet HEAD ${{ inputs.testsDirectory }}  # if there are changes
           then
             git commit -m "[UTBot]: Add generated tests"
+            git push ${{ github.ref }}
           fi
         fi
       shell: bash
 
     - name: Push changes
+      if: ${{ inputs.pushTests }}
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ inputs.token }}
