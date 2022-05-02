@@ -48,14 +48,9 @@ runs:
           fi
         fi
       shell: bash
-    
-    - name: Echo FALSE
-      if: false
-      run: echo "FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE"
-      shell: bash
 
     - name: Push changes
-      if: ${{ inputs.pushTests }} == true
+      if: false
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ inputs.token }}
