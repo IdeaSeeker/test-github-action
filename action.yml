@@ -48,6 +48,11 @@ runs:
           fi
         fi
       shell: bash
+    
+    - name: Echo FALSE
+      if: true
+      run: echo "FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE"
+      shell: bash
 
     - name: Push changes
       if: ${{ inputs.pushTests }}
