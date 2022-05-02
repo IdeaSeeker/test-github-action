@@ -55,13 +55,13 @@ runs:
       shell: bash
 
     - name: Push changes
-      if: ${{ inputs.pushTests }}
+      if: ${{ inputs.pushTests }} == true
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ inputs.token }}
         branch: ${{ github.ref }}
 
-    - name: Upload SARIF file
+    - name: Upload SARIF report
       uses: github/codeql-action/upload-sarif@v1
       with:
         sarif_file: .utbot/utbot.sarif
