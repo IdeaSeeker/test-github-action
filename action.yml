@@ -29,9 +29,6 @@ runs:
       uses: gradle/gradle-build-action@v2
       with:
         arguments: testGradleTask -PtargetClasses=${{ inputs.targetClasses }} -PtestsDirectory=${{ inputs.testsDirectory }} -PpushTests=${{ inputs.pushTests }}
-      env:
-        USERNAME: ${{ github.actor }}
-        TOKEN: ${{ inputs.token }}
 
     - name: Configure git user
       run: |
