@@ -3,7 +3,7 @@ name: 'Test Github Action'
 description: 'Test Github Action Description'
 
 inputs:
-  token:
+  github_token:
     description: 'Specify secrets.GITHUB_TOKEN here if you want to push generated tests in your repository'
     default: "Stub for public repositories"
 
@@ -50,7 +50,7 @@ runs:
       if: ${{ inputs.pushTests == 'true' }}
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ inputs.github_token }}
         branch: ${{ github.ref }}
 
     - name: Upload SARIF report
