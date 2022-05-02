@@ -38,9 +38,13 @@ runs:
 
     - name: Commit generated tests # only if there are changes
       run: |
-        git add ${{ inputs.testsDirectory }}
-        if ! git diff --quiet HEAD ${{ inputs.testsDirectory }}; then
-          git commit -m "[UTBot]: Add generated tests"
+        if ${{ inputs.pushTests }}
+        then
+          git add ${{ inputs.testsDirectory }}
+          if ! git diff --quiet HEAD ${{ inputs.testsDirectory }}
+          then
+            git commit -m "[UTBot]: Add generated tests"
+          fi
         fi
       shell: bash
 
