@@ -49,6 +49,16 @@ runs:
         fi
       shell: bash
 
+    - name: DEBUG
+      run: |
+        echo inputs.pushTests
+        echo "${{ inputs.pushTests }}"
+        echo "${{ inputs.pushTests == true }}"
+        echo "${{ inputs.pushTests == "true" }}"
+        echo "${{ ${{ inputs.pushTests }} == true }}"
+        echo "${{ ${{ inputs.pushTests }} == "true" }}"
+      shell: bash
+
     - name: Push changes
       if: inputs.pushTests
       uses: ad-m/github-push-action@master
