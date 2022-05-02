@@ -33,12 +33,17 @@ runs:
         USERNAME: ${{ github.actor }}
         TOKEN: ${{ inputs.token }}
 
-    - name: Commit generated tests # only if there are changes
+    - name: Configure git user
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git add -A ${{ inputs.testsDirectory }}
-        git diff --quiet HEAD ${{ inputs.testsDirectory }} || git commit -m "[UTBot]: Add generated tests"
+
+    - name: Commit generated tests # only if there are changes
+      run: |
+        git add ${{ inputs.testsDirectory }}
+        if ! git diff --quiet HEAD ${{ inputs.testsDirectory }}; then
+          git commit -m "[UTBot]: Add generated tests"
+        fi
       shell: bash
 
     - name: Push changes
