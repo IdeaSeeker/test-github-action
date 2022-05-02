@@ -5,7 +5,7 @@ description: 'Test Github Action Description'
 inputs:
   token:
     description: 'Specify secrets.GITHUB_TOKEN here if you want to push generated tests in your repository'
-    default: "Specify secrets.GITHUB_TOKEN here"
+    default: "Stub for public repositories"
 
   targetClasses:
     description: 'Classes for the test generation'
