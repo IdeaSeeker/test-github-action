@@ -37,6 +37,7 @@ runs:
       shell: bash
 
     - name: Commit generated tests
+      if: ${{ inputs.pushTests == 'true' }}
       run: |
         git add ${{ inputs.testsDirectory }}
         if ! git diff --quiet HEAD ${{ inputs.testsDirectory }}  # if there are changes
