@@ -21,7 +21,7 @@ inputs:
 
   generatedTestsRelativeRoot:
     description: "Relative path (against repository root) to the root of the generated tests."
-    default: '.utbot/test/'
+    default: 'build/generated/test' #'.utbot/test/'
 
   testFramework:
     description: "The name of the test framework to be used. Options: ['junit4', 'junit5', 'testng']."
@@ -61,8 +61,8 @@ runs:
     - run: chmod +x gradlew
       shell: bash
 
-#     - run: ./gradlew wrapper
-#       shell: bash
+    - run: ./gradlew wrapper
+      shell: bash
 
     - name: Run generateTestsAndSarifReport
       uses: gradle/gradle-build-action@v2
