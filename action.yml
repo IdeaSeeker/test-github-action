@@ -64,18 +64,7 @@ runs:
     - name: Run generateTestsAndSarifReport
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: |
-          generateTestsAndSarifReport
-            -PtargetClasses=${{ inputs.targetClasses }}
-            -PgeneratedTestsRelativeRoot=${{ inputs.generatedTestsRelativeRoot }}
-            -PtestFramework=${{ inputs.testFramework }}
-            -PmockFramework=${{ inputs.mockFramework }}
-            -PgenerationTimeout=${{ inputs.generationTimeout }}
-            -PcodegenLanguage=${{ inputs.codegenLanguage }}
-            -PmockStrategy=${{ inputs.mockStrategy }}
-            -PstaticsMocking=${{ inputs.staticsMocking }}
-            -PforceStaticMocking=${{ inputs.forceStaticMocking }}
-            -PmergedSarifReportName='utbot-report.sarif'
+        arguments: generateTestsAndSarifReport
 
     - name: Configure github-actions[bot]
       run: |
