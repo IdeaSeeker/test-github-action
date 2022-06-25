@@ -1,6 +1,6 @@
-name: 'UTBot static code analysis'
+name: "UTBot static code analysis"
 
-description: 'The GitHub action for generating tests and creating SARIF reports based on UTBotJava'
+description: "The GitHub action for generating tests and creating SARIF reports based on UTBotJava"
 
 branding:
   icon: 'coffee'
@@ -8,51 +8,51 @@ branding:
 
 inputs:
   github_token:
-    description: 'Specify secrets.GITHUB_TOKEN here if you want to push generated tests to your private repository'
+    description: "Specify secrets.GITHUB_TOKEN here if you want to push generated tests to your private repository."
     default: 'Stub for public repositories'
 
   pushTests:
-    description: 'Push generated tests to the repository or not'
+    description: "Push generated tests to the repository or not."
     default: 'true'
 
 #   targetClasses:
-#     description: 'Classes for which the SARIF-report will be created. Uses all source classes from the user project if this list is empty.'
+#     description: "Classes for which the SARIF-report will be created. Uses all source classes from the user project if this list is empty."
 #     default: '?'
 
   generatedTestsRelativeRoot:
-    description: 'Relative path (against repository root) to the root of the generated tests.'
+    description: "Relative path (against repository root) to the root of the generated tests."
     default: '.utbot/test/'
 
   testFramework:
-    description: 'The name of the test framework to be used. Options: [\'junit4', 'junit5', 'testng'].'
+    description: "The name of the test framework to be used. Options: ['junit4', 'junit5', 'testng']."
     default: 'junit5'
 
   mockFramework:
-    description: 'The name of the mock framework to be used. Options: ['mockito'].'
+    description: "The name of the mock framework to be used. Options: ['mockito']."
     default: 'mockito'
 
   generationTimeout:
-    description: 'Time budget for generating tests for one class (in milliseconds).'
+    description: "Time budget for generating tests for one class (in milliseconds)."
     default: '60000'
 
   codegenLanguage:
-    description: 'The language of the generated tests. Options: ['java', 'kotlin'].'
+    description: "The language of the generated tests. Options: ['java', 'kotlin']."
     default: 'java'
 
   mockStrategy:
-    description: 'The mock strategy to be used. Options: ['do-not-mock', 'package-based', 'all-except-cut'].'
+    description: "The mock strategy to be used. Options: ['do-not-mock', 'package-based', 'all-except-cut']."
     default: 'package-based'
 
   staticsMocking:
-    description: 'Use static methods mocking or not. Options: ['do-not-mock-statics', 'mock-statics'].'
+    description: "Use static methods mocking or not. Options: ['do-not-mock-statics', 'mock-statics']."
     default: 'mock-statics'
 
   forceStaticMocking:
-    description: 'Forces mocking static methods and constructors for classesToMockAlways classes or not. Options: ['force', 'do-not-force'].'
+    description: "Forces mocking static methods and constructors for classesToMockAlways classes or not. Options: ['force', 'do-not-force']."
     default: 'force'
 
 #   classesToMockAlways:
-#     description: 'Classes to force mocking theirs static methods and constructors. By default, some internal classes are used.'
+#     description: "Classes to force mocking theirs static methods and constructors. By default, some internal classes are used."
 #     default: '?'
 
 runs:
