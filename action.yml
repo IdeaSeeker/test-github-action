@@ -68,7 +68,7 @@ runs:
       uses: gradle/gradle-build-action@v2
 
     - name: Run generateTestsAndSarifReport task
-    - run: gradle generateTestsAndSarifReport
+      run: gradle generateTestsAndSarifReport
       shell: bash
 
     - name: Configure github-actions[bot]
