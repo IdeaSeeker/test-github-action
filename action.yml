@@ -24,7 +24,7 @@ inputs:
     default: '.utbot/test/'
 
   testFramework:
-    description: 'The name of the test framework to be used. Options: ['junit4', 'junit5', 'testng'].'
+    description: 'The name of the test framework to be used. Options: [\'junit4', 'junit5', 'testng'].'
     default: 'junit5'
 
   mockFramework:
