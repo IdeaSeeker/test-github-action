@@ -95,4 +95,4 @@ runs:
     - name: Upload SARIF report
       uses: github/codeql-action/upload-sarif@v1
       with:
-        sarif_file: .utbot/utbot-report.sarif
+        sarif_file: build/generated/sarif/SarifTestReport.sarif #.utbot/utbot-report.sarif
