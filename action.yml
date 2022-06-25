@@ -1,38 +1,81 @@
-name: 'Test Github Action'
+name: 'UTBot static code analysis'
 
-description: 'Test Github Action Description'
+description: 'The GitHub action for generating tests and creating SARIF reports based on UTBotJava'
+
+branding:
+  icon: 'coffee'
+  color: 'red'
 
 inputs:
   github_token:
-    description: 'Specify secrets.GITHUB_TOKEN here if you want to push generated tests in your repository'
-    default: "Stub for public repositories"
-
-  targetClasses:
-    description: 'Classes for the test generation'
-    default: ""
-
-  testsDirectory:
-    description: 'Path to generated tests'
-    default: .utbot/test
+    description: 'Specify secrets.GITHUB_TOKEN here if you want to push generated tests to your private repository'
+    default: 'Stub for public repositories'
 
   pushTests:
     description: 'Push generated tests to the repository or not'
-    default: true
+    default: 'true'
+
+#   targetClasses:
+#     description: 'Classes for which the SARIF-report will be created. Uses all source classes from the user project if this list is empty.'
+#     default: '?'
+
+  generatedTestsRelativeRoot:
+    description: 'Relative path (against repository root) to the root of the generated tests.'
+    default: '.utbot/test/'
+
+  testFramework:
+    description: 'The name of the test framework to be used. Options: ['junit4', 'junit5', 'testng'].'
+    default: 'junit5'
+
+  mockFramework:
+    description: 'The name of the mock framework to be used. Options: ['mockito'].'
+    default: 'mockito'
+
+  generationTimeout:
+    description: 'Time budget for generating tests for one class (in milliseconds).'
+    default: '60000'
+
+  codegenLanguage:
+    description: 'The language of the generated tests. Options: ['java', 'kotlin'].'
+    default: 'java'
+
+  mockStrategy:
+    description: 'The mock strategy to be used. Options: ['do-not-mock', 'package-based', 'all-except-cut'].'
+    default: 'package-based'
+
+  staticsMocking:
+    description: 'Use static methods mocking or not. Options: ['do-not-mock-statics', 'mock-statics'].'
+    default: 'mock-statics'
+
+  forceStaticMocking:
+    description: 'Forces mocking static methods and constructors for classesToMockAlways classes or not. Options: ['force', 'do-not-force'].'
+    default: 'force'
+
+#   classesToMockAlways:
+#     description: 'Classes to force mocking theirs static methods and constructors. By default, some internal classes are used.'
+#     default: '?'
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:  
     - run: chmod +x gradlew
       shell: bash
 
-    - name: Run testGradleTask
+    - name: Run generateTestsAndSarifReport
       uses: gradle/gradle-build-action@v2
       with:
         arguments: |
-          testGradleTask
+          generateTestsAndSarifReport
             -PtargetClasses=${{ inputs.targetClasses }}
-            -PtestsDirectory=${{ inputs.testsDirectory }}
-            -PpushTests=${{ inputs.pushTests }}
+            -PgeneratedTestsRelativeRoot=${{ inputs.generatedTestsRelativeRoot }}
+            -PtestFramework=${{ inputs.testFramework }}
+            -PmockFramework=${{ inputs.mockFramework }}
+            -PgenerationTimeout=${{ inputs.generationTimeout }}
+            -PcodegenLanguage=${{ inputs.codegenLanguage }}
+            -PmockStrategy=${{ inputs.mockStrategy }}
+            -PstaticsMocking=${{ inputs.staticsMocking }}
+            -PforceStaticMocking=${{ inputs.forceStaticMocking }}
+            -PmergedSarifReportName='utbot-report.sarif'
 
     - name: Configure github-actions[bot]
       run: |
@@ -43,8 +86,8 @@ runs:
     - name: Commit generated tests
       if: ${{ inputs.pushTests == 'true' }}
       run: |
-        git add ${{ inputs.testsDirectory }}
-        if ! git diff --quiet HEAD ${{ inputs.testsDirectory }}  # if there are changes
+        git add ${{ inputs.generatedTestsRelativeRoot }}
+        if ! git diff --quiet HEAD ${{ inputs.generatedTestsRelativeRoot }}  # if there are changes
         then
           git commit -m "[UTBot]: Add generated tests"
         fi
@@ -60,4 +103,4 @@ runs:
     - name: Upload SARIF report
       uses: github/codeql-action/upload-sarif@v1
       with:
-        sarif_file: .utbot/utbot.sarif
+        sarif_file: .utbot/utbot-report.sarif
