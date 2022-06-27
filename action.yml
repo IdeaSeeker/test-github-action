@@ -59,16 +59,7 @@ runs:
   using: 'composite'
   steps:
     - name: Run generateTestsAndSarifReport task
-      run: gradle generateTestsAndSarifReport |
-            -PgeneratedTestsRelativeRoot=${{ inputs.generatedTestsRelativeRoot }}
-            -PtestFramework=${{ inputs.testFramework }}
-            -PmockFramework=${{ inputs.mockFramework }}
-            -PgenerationTimeout=${{ inputs.generationTimeout }}
-            -PcodegenLanguage=${{ inputs.codegenLanguage }}
-            -PmockStrategy=${{ inputs.mockStrategy }}
-            -PstaticsMocking=${{ inputs.staticsMocking }}
-            -PforceStaticMocking=${{ inputs.forceStaticMocking }}
-            -PmergedSarifReportName='utbot-report.sarif'
+      run: gradle generateTestsAndSarifReport
       shell: bash
 
     - name: Configure github-actions[bot]
