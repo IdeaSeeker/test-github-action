@@ -57,18 +57,7 @@ inputs:
 
 runs:
   using: 'composite'
-  steps:  
-#     - run: chmod +x gradlew
-#       shell: bash
-
-#     - run: ./gradlew wrapper
-#       shell: bash
-
-    - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
-      with:
-        gradle-version: 6.8
-
+  steps:
     - name: Run generateTestsAndSarifReport task
       run: gradle generateTestsAndSarifReport
       shell: bash
