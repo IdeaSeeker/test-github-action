@@ -7,10 +7,6 @@ branding:
   color: 'red'
 
 inputs:
-  github_token:
-    description: "Specify secrets.GITHUB_TOKEN here if you want to push generated tests to your private repository."
-    default: 'stub-for-public-repositories'
-
   pushTests:
     description: "Push generated tests to the repository or not."
     default: 'true'
