@@ -57,6 +57,7 @@ inputs:
 
 #        -PtargetClasses=${{ inputs.targetClasses }}
 #        -PclassesToMockAlways=${{ inputs.classesToMockAlways }}
+# pull: '--rebase --autostash'
 
 runs:
   using: 'composite'
@@ -75,17 +76,14 @@ runs:
         -PmergedSarifReportFileName='utbot-report.sarif'
       shell: bash
 
-    - name: Create pull request
-      uses: peter-evans/create-pull-request@v4
+    - name: Commit and push generated tests
       if: ${{ inputs.pushTests == 'true' }}
+      uses: EndBug/add-and-commit@v9
       with:
-        add-paths: ${{ inputs.generatedTestsRelativeRoot }}/
-        commit-message: "[UTBot]: Add generated tests"
-        branch-suffix: short-commit-hash
-        branch: utbot-code-analysis
-        title: "UTBot code analysis"
-        body: "Unit tests generated using UTBot and code analysis information."
-        delete-branch: true
+        add: ${{ inputs.generatedTestsRelativeRoot }}
+        commit: "[UTBot]: Add generated tests"
+        author_name: github-actions[bot]
+        author_email: 41898282+github-actions[bot]@users.noreply.github.com
 
 #     - name: Configure github-actions[bot]
 #       run: |
@@ -95,13 +93,10 @@ runs:
 
 #     - name: Commit generated tests
 #       if: ${{ inputs.pushTests == 'true' }}
-#       run: |
-#         git add ${{ inputs.generatedTestsRelativeRoot }}
-#         if ! git diff --quiet HEAD ${{ inputs.generatedTestsRelativeRoot }}  # if there are changes
-#         then
-#           git commit -m "[UTBot]: Add generated tests"
-#         fi
-#       shell: bash
+#       uses: EndBug/add-and-commit@v9
+#       with:
+#         add: ${{ inputs.generatedTestsRelativeRoot }}
+#         commit: "[UTBot]: Add generated tests"
 
 #     - name: Push changes
 #       if: ${{ inputs.pushTests == 'true' }}
