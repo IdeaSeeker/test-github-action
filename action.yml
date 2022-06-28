@@ -71,7 +71,7 @@ runs:
         -PstaticsMocking=${{ inputs.staticsMocking }}
         -PforceStaticMocking=${{ inputs.forceStaticMocking }}
         -PclassesToMockAlways=${{ inputs.classesToMockAlways }}
-        -PmergedSarifReportFileName=utbot-report.sarif
+        -PmergedSarifReportFileName="utbot-report.sarif"
       shell: bash
 
     - name: Create pull request
