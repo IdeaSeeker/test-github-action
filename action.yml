@@ -60,7 +60,7 @@ runs:
   steps:
     - name: Run generateTestsAndSarifReport task
       run: gradle generateTestsAndSarifReport |
-        -PtargetClasses='${{ inputs.targetClasses }}'
+#         -PtargetClasses='${{ inputs.targetClasses }}'
         -PgeneratedTestsRelativeRoot=${{ inputs.generatedTestsRelativeRoot }}
         -PsarifReportsRelativeRoot=${{ inputs.generatedTestsRelativeRoot }}/../sarif
         -PtestFramework=${{ inputs.testFramework }}
@@ -70,7 +70,7 @@ runs:
         -PmockStrategy=${{ inputs.mockStrategy }}
         -PstaticsMocking=${{ inputs.staticsMocking }}
         -PforceStaticMocking=${{ inputs.forceStaticMocking }}
-        -PclassesToMockAlways='${{ inputs.classesToMockAlways }}'
+#         -PclassesToMockAlways='${{ inputs.classesToMockAlways }}'
         -PmergedSarifReportName='utbot-report.sarif'
       shell: bash
 
