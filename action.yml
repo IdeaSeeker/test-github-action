@@ -64,6 +64,7 @@ runs:
 
     - name: Run generateTestsAndSarifReport task
       run: gradle generateTestsAndSarifReport
+        -PtargetClasses='${{ inputs.targetClasses }}'
         -PgeneratedTestsRelativeRoot='${{ inputs.generatedTestsRelativeRoot }}'
         -PsarifReportsRelativeRoot='.utbot/sarif'
         -PtestFramework='${{ inputs.testFramework }}'
@@ -73,7 +74,8 @@ runs:
         -PmockStrategy='${{ inputs.mockStrategy }}'
         -PstaticsMocking='${{ inputs.staticsMocking }}'
         -PforceStaticMocking='${{ inputs.forceStaticMocking }}'
-        -PmergedSarifReportName='utbot-report.sarif'
+        -PclassesToMockAlways='${{ inputs.classesToMockAlways }}'
+        -PmergedSarifReportFileName='utbot-report.sarif'
       shell: bash
 
     - name: Create pull request
