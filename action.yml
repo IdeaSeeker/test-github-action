@@ -62,7 +62,6 @@ runs:
       run: gradle generateTestsAndSarifReport
         -PtargetClasses=${{ inputs.targetClasses }}
         -PgeneratedTestsRelativeRoot=${{ inputs.generatedTestsRelativeRoot }}
-        -PsarifReportsRelativeRoot='.'
         -PtestFramework=${{ inputs.testFramework }}
         -PmockFramework=${{ inputs.mockFramework }}
         -PgenerationTimeout=${{ inputs.generationTimeout }}
@@ -112,4 +111,4 @@ runs:
     - name: Upload SARIF report
       uses: github/codeql-action/upload-sarif@v2
       with:
-        sarif_file: utbot.sarif
+        sarif_file: build/generated/sarif/utbot.sarif
