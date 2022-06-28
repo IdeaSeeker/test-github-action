@@ -55,7 +55,7 @@ runs:
   using: 'composite'
   steps:
     - name: Run generateTestsAndSarifReport task
-      run: gradle generateTestsAndSarifReport --debug
+      run: gradle generateTestsAndSarifReport
         -PtargetClasses="${{ inputs.targetClasses }}"
         -PgeneratedTestsRelativeRoot=${{ inputs.generatedTestsRelativeRoot }}
         -PsarifReportsRelativeRoot='.utbot/sarif'
