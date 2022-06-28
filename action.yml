@@ -60,25 +60,25 @@ runs:
   steps:
     - name: Run generateTestsAndSarifReport task
       run: gradle generateTestsAndSarifReport
-        -PtargetClasses=${{ inputs.targetClasses }}
-        -PgeneratedTestsRelativeRoot=${{ inputs.generatedTestsRelativeRoot }}
-        -PsarifReportsRelativeRoot='.utbot/sarif'
-        -PtestFramework=${{ inputs.testFramework }}
-        -PmockFramework=${{ inputs.mockFramework }}
-        -PgenerationTimeout=${{ inputs.generationTimeout }}
-        -PcodegenLanguage=${{ inputs.codegenLanguage }}
-        -PmockStrategy=${{ inputs.mockStrategy }}
-        -PstaticsMocking=${{ inputs.staticsMocking }}
-        -PforceStaticMocking=${{ inputs.forceStaticMocking }}
-        -PclassesToMockAlways=${{ inputs.classesToMockAlways }}
-        -PmergedSarifReportFileName='utbot-report.sarif'
+        -PtargetClasses="${{ inputs.targetClasses }}"
+        -PgeneratedTestsRelativeRoot=${{ inputs.generatedTestsRelativeRoot }}"
+        -PsarifReportsRelativeRoot=".utbot/sarif"
+        -PtestFramework="${{ inputs.testFramework }}"
+        -PmockFramework="${{ inputs.mockFramework }}"
+        -PgenerationTimeout="${{ inputs.generationTimeout }}"
+        -PcodegenLanguage="${{ inputs.codegenLanguage }}"
+        -PmockStrategy="${{ inputs.mockStrategy }}"
+        -PstaticsMocking="${{ inputs.staticsMocking }}"
+        -PforceStaticMocking="${{ inputs.forceStaticMocking }}"
+        -PclassesToMockAlways="${{ inputs.classesToMockAlways }}"
+        -PmergedSarifReportFileName="utbot-report.sarif"
       shell: bash
 
     - name: Commit and push generated tests
       if: ${{ inputs.pushTests == 'true' }}
       uses: EndBug/add-and-commit@v9
       with:
-        add: ${{ inputs.generatedTestsRelativeRoot }}
+        add: ${{ inputs.generatedTestsRelativeRoot }} .utbot/sarif/utbot-report.sarif
         message: "[UTBot]: Add generated tests"
         author_name: github-actions[bot]
         author_email: 41898282+github-actions[bot]@users.noreply.github.com
