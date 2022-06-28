@@ -60,6 +60,7 @@ runs:
   steps:
     - name: Create required directories
       run: mkdir -p ${{ inputs.generatedTestsRelativeRoot }} .utbot/sarif
+      shell: bash
 
     - name: Run generateTestsAndSarifReport task
       run: gradle generateTestsAndSarifReport |
