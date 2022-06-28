@@ -79,11 +79,11 @@ runs:
       if: ${{ inputs.pushTests == 'true' }}
       with:
         add-paths: ${{ inputs.generatedTestsRelativeRoot }}/
-        commit-message: [UTBot]: Add generated tests
+        commit-message: "[UTBot]: Add generated tests"
         branch-suffix: short-commit-hash
         branch: utbot-code-analysis
-        title: UTBot code analysis
-        body: Unit tests generated using UTBot and code analysis information.
+        title: "UTBot code analysis"
+        body: "Unit tests generated using UTBot and code analysis information."
         delete-branch: true
 
 #     - name: Configure github-actions[bot]
