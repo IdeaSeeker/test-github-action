@@ -63,7 +63,7 @@ runs:
       shell: bash
 
     - name: Run generateTestsAndSarifReport task
-      run: gradle generateTestsAndSarifReport |
+      run: gradle generateTestsAndSarifReport
         -PgeneratedTestsRelativeRoot=utbottest
         -PsarifReportsRelativeRoot=utbotsarif
         -PtestFramework=${{ inputs.testFramework }}
