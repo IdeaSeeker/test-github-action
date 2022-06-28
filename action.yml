@@ -64,8 +64,8 @@ runs:
 
     - name: Run generateTestsAndSarifReport task
       run: gradle generateTestsAndSarifReport |
-        -PgeneratedTestsRelativeRoot='${{ inputs.generatedTestsRelativeRoot }}'
-        -PsarifReportsRelativeRoot='.utbot/sarif'
+        -PgeneratedTestsRelativeRoot="'${{ inputs.generatedTestsRelativeRoot }}'"
+        -PsarifReportsRelativeRoot="'.utbot/sarif'"
         -PtestFramework=${{ inputs.testFramework }}
         -PmockFramework=${{ inputs.mockFramework }}
         -PgenerationTimeout=${{ inputs.generationTimeout }}
