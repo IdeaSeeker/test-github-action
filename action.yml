@@ -64,15 +64,15 @@ runs:
 
     - name: Run generateTestsAndSarifReport task
       run: gradle generateTestsAndSarifReport
-        -PgeneratedTestsRelativeRoot=utbottest
-        -PsarifReportsRelativeRoot=utbotsarif
-        -PtestFramework=${{ inputs.testFramework }}
-        -PmockFramework=${{ inputs.mockFramework }}
-        -PgenerationTimeout=${{ inputs.generationTimeout }}
-        -PcodegenLanguage=${{ inputs.codegenLanguage }}
-        -PmockStrategy=${{ inputs.mockStrategy }}
-        -PstaticsMocking=${{ inputs.staticsMocking }}
-        -PforceStaticMocking=${{ inputs.forceStaticMocking }}
+        -PgeneratedTestsRelativeRoot='${{ inputs.generatedTestsRelativeRoot }}'
+        -PsarifReportsRelativeRoot='.utbot/sarif'
+        -PtestFramework='${{ inputs.testFramework }}'
+        -PmockFramework='${{ inputs.mockFramework }}'
+        -PgenerationTimeout='${{ inputs.generationTimeout }}'
+        -PcodegenLanguage='${{ inputs.codegenLanguage }}'
+        -PmockStrategy='${{ inputs.mockStrategy }}'
+        -PstaticsMocking='${{ inputs.staticsMocking }}'
+        -PforceStaticMocking='${{ inputs.forceStaticMocking }}'
         -PmergedSarifReportName='utbot-report.sarif'
       shell: bash
 
