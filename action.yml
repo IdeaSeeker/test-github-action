@@ -55,12 +55,15 @@ inputs:
     description: "Classes to force mocking theirs static methods and constructors. By default, some internal classes are used."
     default: '[]'
 
+# -PsarifReportsRelativeRoot
+#        -PtargetClasses=${{ inputs.targetClasses }}
+#        -PclassesToMockAlways=${{ inputs.classesToMockAlways }}
+
 runs:
   using: 'composite'
   steps:
     - name: Run generateTestsAndSarifReport task
       run: gradle generateTestsAndSarifReport
-        -PtargetClasses=${{ inputs.targetClasses }}
         -PgeneratedTestsRelativeRoot=${{ inputs.generatedTestsRelativeRoot }}
         -PtestFramework=${{ inputs.testFramework }}
         -PmockFramework=${{ inputs.mockFramework }}
@@ -69,7 +72,6 @@ runs:
         -PmockStrategy=${{ inputs.mockStrategy }}
         -PstaticsMocking=${{ inputs.staticsMocking }}
         -PforceStaticMocking=${{ inputs.forceStaticMocking }}
-        -PclassesToMockAlways=${{ inputs.classesToMockAlways }}
         -PmergedSarifReportFileName=utbot.sarif
       shell: bash
 
