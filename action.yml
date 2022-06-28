@@ -15,13 +15,13 @@ inputs:
     description: "Push generated tests to the repository or not."
     default: 'true'
 
-#   targetClasses:
-#     description: "Classes for which the SARIF-report will be created. Uses all source classes from the user project if this list is empty."
-#     default: '?'
+  targetClasses:
+    description: "Classes for which the SARIF-report will be created. Uses all source classes from the user project if this list is empty."
+    default: '[]'
 
   generatedTestsRelativeRoot:
     description: "Relative path (against repository root) to the root of the generated tests."
-    default: 'build/generated/test' #'.utbot/test/'
+    default: '.utbot/test/'
 
   testFramework:
     description: "The name of the test framework to be used. Options: ['junit4', 'junit5', 'testng']."
@@ -51,15 +51,27 @@ inputs:
     description: "Forces mocking static methods and constructors for classesToMockAlways classes or not. Options: ['force', 'do-not-force']."
     default: 'force'
 
-#   classesToMockAlways:
-#     description: "Classes to force mocking theirs static methods and constructors. By default, some internal classes are used."
-#     default: '?'
+  classesToMockAlways:
+    description: "Classes to force mocking theirs static methods and constructors. By default, some internal classes are used."
+    default: '[]'
 
 runs:
   using: 'composite'
   steps:
     - name: Run generateTestsAndSarifReport task
-      run: gradle generateTestsAndSarifReport -PmergedSarifReportFileName='utbot-report.sarif'
+      run: gradle generateTestsAndSarifReport |
+        -PtargetClasses='${{ inputs.targetClasses }}'
+        -PgeneratedTestsRelativeRoot=${{ inputs.generatedTestsRelativeRoot }}
+        -PsarifReportsRelativeRoot=${{ inputs.generatedTestsRelativeRoot }}/../sarif
+        -PtestFramework=${{ inputs.testFramework }}
+        -PmockFramework=${{ inputs.mockFramework }}
+        -PgenerationTimeout=${{ inputs.generationTimeout }}
+        -PcodegenLanguage=${{ inputs.codegenLanguage }}
+        -PmockStrategy=${{ inputs.mockStrategy }}
+        -PstaticsMocking=${{ inputs.staticsMocking }}
+        -PforceStaticMocking=${{ inputs.forceStaticMocking }}
+        -PclassesToMockAlways='${{ inputs.classesToMockAlways }}'
+        -PmergedSarifReportName='utbot-report.sarif'
       shell: bash
 
     - name: Configure github-actions[bot]
@@ -88,4 +100,4 @@ runs:
     - name: Upload SARIF report
       uses: github/codeql-action/upload-sarif@v2
       with:
-        sarif_file: build/generated/sarif/utbot-report.sarif
+        sarif_file: ${{ inputs.generatedTestsRelativeRoot }}/../sarif/utbot-report.sarif
