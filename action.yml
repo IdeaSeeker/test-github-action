@@ -9,7 +9,7 @@ branding:
 inputs:
   github_token:
     description: "Specify secrets.GITHUB_TOKEN here if you want to push generated tests to your private repository."
-    default: 'Stub for public repositories'
+    default: 'stub-for-public-repositories'
 
   pushTests:
     description: "Push generated tests to the repository or not."
@@ -58,10 +58,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Create required directories
-      run: mkdir -p ${{ inputs.generatedTestsRelativeRoot }} .utbot/sarif
-      shell: bash
-
     - name: Run generateTestsAndSarifReport task
       run: gradle generateTestsAndSarifReport
         -PtargetClasses='${{ inputs.targetClasses }}'
