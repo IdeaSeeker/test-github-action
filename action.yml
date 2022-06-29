@@ -65,7 +65,7 @@ runs:
         -PmergedSarifReportFileName='utbot-report.sarif'
       shell: bash
 
-    - name: Commit generated tests
+    - name: Commit and push generated tests
       if: ${{ inputs.pushTests == 'true' }}
       uses: EndBug/add-and-commit@v9
       with:
@@ -73,17 +73,12 @@ runs:
         message: "[UTBot]: Add generated tests"
         author_name: github-actions[bot]
         author_email: 41898282+github-actions[bot]@users.noreply.github.com
-        push: false
+        push: true
 
-    - name: Push generated tests
+#     - name: Push generated tests
 #       if: ${{ inputs.pushTests == 'true' }}
-#       run: git pull origin ${{ github.head_ref }}; git push ${{ github.head_ref }}
+#       run: git pull; git push
 #       shell: bash
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: '-'  # ${{ secrets.GITHUB_TOKEN }}
-        branch: origin HEAD:${{ github.head_ref }}
-#         force: true
 
     - name: Upload SARIF report
       uses: github/codeql-action/upload-sarif@v2
