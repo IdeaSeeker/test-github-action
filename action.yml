@@ -73,6 +73,7 @@ runs:
         message: "[UTBot]: Add generated tests"
         author_name: github-actions[bot]
         author_email: 41898282+github-actions[bot]@users.noreply.github.com
+        push: false
 
     - name: Push generated tests
       if: ${{ inputs.pushTests == 'true' }}
