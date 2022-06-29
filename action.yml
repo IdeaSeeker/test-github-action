@@ -76,13 +76,13 @@ runs:
         push: false
 
     - name: Push generated tests
-      if: ${{ inputs.pushTests == 'true' }}
-      run: git pull origin ${{ github.head_ref }}; git push ${{ github.head_ref }}
-      shell: bash
-#       uses: ad-m/github-push-action@master
-#       with:
-#         github_token: '-'  # ${{ secrets.GITHUB_TOKEN }}
-#         branch: ${{ github.head_ref }}
+#       if: ${{ inputs.pushTests == 'true' }}
+#       run: git pull origin ${{ github.head_ref }}; git push ${{ github.head_ref }}
+#       shell: bash
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: '-'  # ${{ secrets.GITHUB_TOKEN }}
+        branch: origin HEAD:${{ github.head_ref }}
 #         force: true
 
     - name: Upload SARIF report
