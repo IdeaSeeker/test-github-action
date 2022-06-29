@@ -75,11 +75,6 @@ runs:
         author_email: 41898282+github-actions[bot]@users.noreply.github.com
         push: true
 
-#     - name: Push generated tests
-#       if: ${{ inputs.pushTests == 'true' }}
-#       run: git pull; git push
-#       shell: bash
-
     - name: Upload SARIF report
       uses: github/codeql-action/upload-sarif@v2
       with:
