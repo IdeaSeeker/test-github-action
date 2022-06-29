@@ -74,7 +74,7 @@ runs:
       if: ${{ inputs.pushTests == 'true' }}
       uses: EndBug/add-and-commit@v9
       with:
-        add: ${{ inputs.generatedTestsRelativeRoot }} .utbot/sarif/utbot-report.sarif
+        add: ${{ inputs.generatedTestsRelativeRoot }}
         message: "[UTBot]: Add generated tests"
         author_name: github-actions[bot]
         author_email: 41898282+github-actions[bot]@users.noreply.github.com
