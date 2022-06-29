@@ -74,7 +74,7 @@ runs:
         author_name: github-actions[bot]
         author_email: 41898282+github-actions[bot]@users.noreply.github.com
 
-#     - name: Push generated tests
+    - name: Push generated tests
 #       if: ${{ inputs.pushTests == 'true' }}
 #       run: git pull; git push
 #       shell: bash
